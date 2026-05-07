@@ -8,6 +8,5 @@ await build({
   format: "esm",
   target: "node18",
   external: ["vscode"],
-  sourcemap: true,
+  sourcemap: false,
 });
-

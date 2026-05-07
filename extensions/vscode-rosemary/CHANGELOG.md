@@ -19,6 +19,7 @@ ROSEMARY VS Code 拡張機能の主な変更は、このファイルに記録さ
 - paragraph、nested list、numbered list、dialogue、annotation を含む multiline field block。
 - multiline field block 内の list continuation に対する Enter と Tab editing helper。
 - block reference highlight color と excluded block name の設定。
+- Enter と Tab による list editing helper の無効化設定。
 - PNG extension icon と `.rsmr` file icon。
 
 ### 補足
@@ -50,6 +51,7 @@ Initial public-preparation release.
 - Multiline field blocks with paragraphs, nested lists, numbered lists, dialogue, and annotations.
 - Enter and Tab editing helpers for list continuation in multiline field blocks.
 - Configurable block reference highlight colors and excluded block names.
+- Setting to disable Enter and Tab list editing helpers.
 - PNG extension and `.rsmr` file icons.
 
 ### Notes

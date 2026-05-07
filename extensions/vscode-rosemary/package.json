@@ -1,12 +1,25 @@
 {
   "name": "vscode-rosemary",
-  "displayName": "ROSEMARY",
+  "displayName": "ROSEMARY Plot Markup",
   "description": "Language support and preview for ROSEMARY plot files.",
   "version": "0.1.0",
   "private": false,
   "type": "module",
   "license": "SEE LICENSE IN LICENSE",
   "publisher": "onitarou",
+  "preview": true,
+  "keywords": [
+    "rosemary",
+    "rsmr",
+    "plot",
+    "story",
+    "writing",
+    "fiction",
+    "novel",
+    "outline",
+    "markup",
+    "worldbuilding"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/I-Sora/Rosemary.git"
@@ -16,6 +29,10 @@
   },
   "homepage": "https://github.com/I-Sora/Rosemary#readme",
   "icon": "icons/rosemary-extension.png",
+  "galleryBanner": {
+    "color": "#2f5f52",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -25,7 +42,8 @@
   ],
   "main": "./dist/extension.js",
   "files": [
-    "dist/**",
+    "dist/extension.js",
+    "dist/extension.d.ts",
     "icons/rosemary-extension.png",
     "syntaxes/**",
     "language-configuration.json",
@@ -94,13 +112,13 @@
         "command": "rosemary.handleEnter",
         "key": "enter",
         "mac": "enter",
-        "when": "editorTextFocus && (editorLangId == rosemary || resourceExtname == .rsmr)"
+        "when": "editorTextFocus && config.rosemary.listEditing.enabled && (editorLangId == rosemary || resourceExtname == .rsmr)"
       },
       {
         "command": "rosemary.handleTab",
         "key": "tab",
         "mac": "tab",
-        "when": "editorTextFocus && (editorLangId == rosemary || resourceExtname == .rsmr)"
+        "when": "editorTextFocus && config.rosemary.listEditing.enabled && (editorLangId == rosemary || resourceExtname == .rsmr)"
       }
     ],
     "configurationDefaults": {
@@ -111,6 +129,11 @@
     "configuration": {
       "title": "ROSEMARY",
       "properties": {
+        "rosemary.listEditing.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable ROSEMARY list editing helpers for Enter and Tab inside multiline field blocks."
+        },
         "rosemary.blockReferenceHighlight.enabled": {
           "type": "boolean",
           "default": true,

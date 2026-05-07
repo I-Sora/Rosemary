@@ -119,6 +119,7 @@ include された `.rsmr` ファイルは、include directive を含むファイ
 
 ```json
 {
+  "rosemary.listEditing.enabled": true,
   "rosemary.blockReferenceHighlight.enabled": true,
   "rosemary.blockReferenceHighlight.excludedBlockNames": [],
   "rosemary.blockReferenceHighlight.colors": {
@@ -129,6 +130,8 @@ include された `.rsmr` ファイルは、include directive を含むファイ
   }
 }
 ```
+
+`listEditing.enabled` を `false` にすると、`field: [` block 内での Enter と Tab によるリスト入力補助を無効化できます。
 
 短すぎる block 名や曖昧な block 名をハイライト対象から外したい場合は、`excludedBlockNames` を使用します。
 
@@ -273,6 +276,7 @@ Included `.rsmr` files are resolved relative to the file that contains the inclu
 
 ```json
 {
+  "rosemary.listEditing.enabled": true,
   "rosemary.blockReferenceHighlight.enabled": true,
   "rosemary.blockReferenceHighlight.excludedBlockNames": [],
   "rosemary.blockReferenceHighlight.colors": {
@@ -283,6 +287,8 @@ Included `.rsmr` files are resolved relative to the file that contains the inclu
   }
 }
 ```
+
+Set `listEditing.enabled` to `false` to disable the Enter and Tab list editing helpers inside `field: [` blocks.
 
 Use `excludedBlockNames` to avoid highlighting short or ambiguous block names.
 

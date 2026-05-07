@@ -60,7 +60,9 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidOpenTextDocument(refreshDocumentFeatures),
     vscode.workspace.onDidChangeTextDocument((event) => {
       refreshDocumentFeatures(event.document);
-      void maybeHandleRosemaryListEnterChange(event);
+      if (isRosemaryListEditingEnabled()) {
+        void maybeHandleRosemaryListEnterChange(event);
+      }
       forEachPreviewPanel((panel) => {
         panel.refreshForPotentialProjectChange(event.document);
       });
@@ -2984,6 +2986,7 @@ async function revealBlockDefinition(
 async function handleRosemaryEnter(): Promise<void> {
   const editor = vscode.window.activeTextEditor;
   if (
+    !isRosemaryListEditingEnabled() ||
     !editor ||
     !isRosemaryDocument(editor.document) ||
     editor.selections.length !== 1 ||
@@ -3040,6 +3043,7 @@ async function handleRosemaryEnter(): Promise<void> {
 async function handleRosemaryTab(): Promise<void> {
   const editor = vscode.window.activeTextEditor;
   if (
+    !isRosemaryListEditingEnabled() ||
     !editor ||
     !isRosemaryDocument(editor.document) ||
     editor.selections.length !== 1 ||
@@ -3225,6 +3229,12 @@ async function insertDefaultTab(): Promise<void> {
     const text = editor ? getEditorIndentUnit(editor) : "\t";
     await vscode.commands.executeCommand("default:type", { text });
   }
+}
+
+function isRosemaryListEditingEnabled(): boolean {
+  return vscode.workspace
+    .getConfiguration("rosemary.listEditing")
+    .get<boolean>("enabled", true);
 }
 
 function getEditorIndentUnit(editor: vscode.TextEditor): string {

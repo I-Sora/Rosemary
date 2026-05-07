@@ -507,6 +507,7 @@ block 名の出現ハイライトは、VSCode の設定から調整できます�
 
 ```json
 {
+  "rosemary.listEditing.enabled": true,
   "rosemary.blockReferenceHighlight.enabled": true,
   "rosemary.blockReferenceHighlight.excludedBlockNames": [
     "雨",
@@ -521,6 +522,8 @@ block 名の出現ハイライトは、VSCode の設定から調整できます�
   }
 }
 ```
+
+`listEditing.enabled` を `false` にすると、`field: [` 内での Enter と Tab によるリスト入力補助を無効化できます。
 
 `excludedBlockNames` に指定した block 名は、本文中に出現してもハイライトされません。右クリックメニューの定義ジャンプ候補にも表示されません。`colors` は block 種別ごとに指定でき、未指定の種別には `default` が使われます。
 
