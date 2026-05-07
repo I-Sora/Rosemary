@@ -1,0 +1,460 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "ROSEMARY",
+  "scopeName": "source.rosemary",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#meta"
+    },
+    {
+      "include": "#includes"
+    },
+    {
+      "include": "#links"
+    },
+    {
+      "include": "#blockNames"
+    },
+    {
+      "include": "#questions"
+    },
+    {
+      "include": "#answers"
+    },
+    {
+      "include": "#annotations"
+    },
+    {
+      "include": "#fieldBlockValues"
+    },
+    {
+      "include": "#dialogue"
+    },
+    {
+      "include": "#fields"
+    },
+    {
+      "include": "#attributes"
+    },
+    {
+      "include": "#tags"
+    },
+    {
+      "include": "#lines"
+    },
+    {
+      "include": "#numbersAndBooleans"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#punctuation"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.rosemary",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "meta": {
+      "patterns": [
+        {
+          "name": "meta.frontmatter.rosemary",
+          "begin": "^(---)\\s*$",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.meta.rosemary"
+            }
+          },
+          "end": "^(---)\\s*$",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.meta.rosemary"
+            }
+          },
+          "patterns": [
+            {
+              "match": "^\\s*([A-Za-z_][A-Za-z0-9_-]*)(:)\\s*",
+              "captures": {
+                "1": {
+                  "name": "entity.other.attribute-name.meta.rosemary"
+                },
+                "2": {
+                  "name": "punctuation.separator.key-value.rosemary"
+                }
+              }
+            },
+            {
+              "include": "#numbersAndBooleans"
+            },
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "blockNames": {
+      "patterns": [
+        {
+          "name": "meta.character.declaration.rosemary",
+          "match": "(\"(?:\\\\.|[^\"\\\\])*\")(?=\\s*\\[[^\\]]*\\bcharacter\\b[^\\]]*\\](?:\\s*\\[[^\\]]*\\])*\\s*\\{)",
+          "captures": {
+            "1": {
+              "name": "entity.name.type.character.rosemary string.quoted.double.rosemary"
+            }
+          }
+        },
+        {
+          "name": "meta.block.declaration.rosemary",
+          "match": "(\"(?:\\\\.|[^\"\\\\])*\")(?=\\s*(?:\\[[^\\]]*\\]\\s*)*\\{)",
+          "captures": {
+            "1": {
+              "name": "entity.name.section.block.rosemary string.quoted.double.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "includes": {
+      "patterns": [
+        {
+          "name": "meta.include.rosemary",
+          "match": "(@include)\\s+(\"(?:\\\\.|[^\"\\\\])*\")",
+          "captures": {
+            "1": {
+              "name": "keyword.control.import.include.rosemary"
+            },
+            "2": {
+              "name": "string.quoted.double.include-path.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "links": {
+      "patterns": [
+        {
+          "name": "meta.link.rosemary",
+          "match": "(@)\\s*(\"(?:\\\\.|[^\"\\\\])*\")",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.link.rosemary"
+            },
+            "2": {
+              "name": "entity.name.reference.block.rosemary string.quoted.double.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "attributes": {
+      "patterns": [
+        {
+          "name": "meta.attribute-group.rosemary",
+          "begin": "\\[",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.attribute.begin.rosemary"
+            }
+          },
+          "end": "\\]",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.attribute.end.rosemary"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#tags"
+            },
+            {
+              "match": "([A-Za-z_][A-Za-z0-9_-]*)(\\s*=)?",
+              "captures": {
+                "1": {
+                  "name": "entity.other.attribute-name.rosemary"
+                },
+                "2": {
+                  "name": "keyword.operator.assignment.rosemary"
+                }
+              }
+            },
+            {
+              "include": "#numbersAndBooleans"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "match": ",",
+              "name": "punctuation.separator.comma.rosemary"
+            }
+          ]
+        }
+      ]
+    },
+    "tags": {
+      "patterns": [
+        {
+          "name": "entity.name.tag.rosemary",
+          "match": "#[^\\s\\[\\]\\{\\},:=\"@?!]+"
+        }
+      ]
+    },
+    "dialogue": {
+      "patterns": [
+        {
+          "name": "meta.dialogue.rosemary",
+          "match": "^\\s*((?:\"(?:\\\\.|[^\"\\\\])*\")|[^\\s>\\{\\}\\[\\]\\(\\),:=@#?!\"]+)\\s*(>)\\s*(.*?)(?:\\s*(?<!\\\\)(\\^)\\s*((?:[^/\\n]|/(?!/))+))?$",
+          "captures": {
+            "1": {
+              "name": "entity.name.speaker.rosemary"
+            },
+            "2": {
+              "name": "punctuation.separator.dialogue.rosemary"
+            },
+            "3": {
+              "name": "string.unquoted.dialogue.rosemary"
+            },
+            "4": {
+              "name": "keyword.operator.annotation.rosemary"
+            },
+            "5": {
+              "name": "markup.italic.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "fieldBlockValues": {
+      "patterns": [
+        {
+          "name": "meta.field.block-value.rosemary",
+          "begin": "^\\s*([A-Za-z_][A-Za-z0-9_-]*)(:)\\s*(\\[)\\s*$",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.other.property.rosemary"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.rosemary"
+            },
+            "3": {
+              "name": "punctuation.definition.field-value.begin.rosemary"
+            }
+          },
+          "end": "^\\s*(\\])\\s*$",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.field-value.end.rosemary"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#dialogue"
+            },
+            {
+              "include": "#annotations"
+            },
+            {
+              "name": "punctuation.definition.list.unordered.rosemary",
+              "match": "^\\s*(-)\\s+"
+            },
+            {
+              "name": "punctuation.definition.list.ordered.rosemary",
+              "match": "^\\s*(\\d+\\.)(?=\\s+)"
+            },
+            {
+              "include": "#inlineAnnotations"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#numbersAndBooleans"
+            }
+          ]
+        }
+      ]
+    },
+    "fields": {
+      "patterns": [
+        {
+          "name": "meta.field.rosemary",
+          "match": "^\\s*([A-Za-z_][A-Za-z0-9_-]*)(:)\\s*",
+          "captures": {
+            "1": {
+              "name": "variable.other.property.rosemary"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "questions": {
+      "patterns": [
+        {
+          "name": "meta.question.rosemary",
+          "match": "^\\s*(\\?)\\s*(\"(?:\\\\.|[^\"\\\\])*\")",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.question.rosemary"
+            },
+            "2": {
+              "name": "string.quoted.double.question.rosemary"
+            }
+          }
+        },
+        {
+          "name": "meta.question.rosemary",
+          "match": "^\\s*(\\?)\\s*((?:[^/\\n]|/(?!/))+)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.question.rosemary"
+            },
+            "2": {
+              "name": "string.unquoted.question.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "answers": {
+      "patterns": [
+        {
+          "name": "meta.answer.rosemary",
+          "match": "^\\s*(!)\\s*(\"(?:\\\\.|[^\"\\\\])*\")",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.answer.rosemary"
+            },
+            "2": {
+              "name": "string.quoted.double.answer.rosemary"
+            }
+          }
+        },
+        {
+          "name": "meta.answer.rosemary",
+          "match": "^\\s*(!)\\s*((?:[^/\\n]|/(?!/))+)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.answer.rosemary"
+            },
+            "2": {
+              "name": "string.unquoted.answer.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "annotations": {
+      "patterns": [
+        {
+          "name": "meta.annotation.rosemary",
+          "match": "^\\s*(\\^)\\s*(\"(?:\\\\.|[^\"\\\\])*\")",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.annotation.rosemary"
+            },
+            "2": {
+              "name": "string.quoted.double.annotation.rosemary markup.italic.rosemary"
+            }
+          }
+        },
+        {
+          "name": "meta.annotation.rosemary",
+          "match": "^\\s*(\\^)\\s*((?:[^/\\n]|/(?!/))+)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.annotation.rosemary"
+            },
+            "2": {
+              "name": "markup.italic.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "inlineAnnotations": {
+      "patterns": [
+        {
+          "name": "meta.annotation.inline.rosemary",
+          "match": "(?<!\\\\)(\\^)\\s*((?:[^/\\n]|/(?!/))+)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.annotation.rosemary"
+            },
+            "2": {
+              "name": "markup.italic.rosemary"
+            }
+          }
+        }
+      ]
+    },
+    "lines": {
+      "patterns": [
+        {
+          "name": "keyword.operator.line.bidirectional.rosemary",
+          "match": "<--(?:\"(?:\\\\.|[^\"\\\\])*\")?-->"
+        },
+        {
+          "name": "keyword.operator.line.bold.rosemary",
+          "match": "==(?:\"(?:\\\\.|[^\"\\\\])*\")?==>"
+        },
+        {
+          "name": "keyword.operator.line.dotted.rosemary",
+          "match": "-\\.(?:\"(?:\\\\.|[^\"\\\\])*\")?-.->"
+        },
+        {
+          "name": "keyword.operator.line.solid.rosemary",
+          "match": "--(?:\"(?:\\\\.|[^\"\\\\])*\")?-->"
+        }
+      ]
+    },
+    "numbersAndBooleans": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.rosemary",
+          "match": "\\b(?:true|false)\\b"
+        },
+        {
+          "name": "constant.numeric.rosemary",
+          "match": "-?\\b\\d+(?:\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.rosemary",
+          "match": "\"(?:\\\\.|[^\"\\\\])*\""
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.section.block.rosemary",
+          "match": "[{}]"
+        },
+        {
+          "name": "punctuation.separator.comma.rosemary",
+          "match": ","
+        },
+        {
+          "name": "keyword.operator.assignment.rosemary",
+          "match": "="
+        }
+      ]
+    }
+  }
+}

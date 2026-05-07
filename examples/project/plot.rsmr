@@ -1,0 +1,10 @@
+@include "character.rsmr"
+@include "item.rsmr"
+
+"雨の日の再会"[scene]{
+    "ミオと蓮が十年ぶりに再会する"
+
+    @ "佐倉ミオ"
+    @ "高瀬蓮"
+    @ "古い鍵" --"発見"-->
+}

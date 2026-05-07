@@ -1,0 +1,189 @@
+{
+  "name": "vscode-rosemary",
+  "displayName": "ROSEMARY",
+  "description": "Language support and preview for ROSEMARY plot files.",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "publisher": "onitarou",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/I-Sora/Rosemary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/I-Sora/Rosemary/issues"
+  },
+  "homepage": "https://github.com/I-Sora/Rosemary#readme",
+  "icon": "icons/rosemary-extension.png",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Visualization"
+  ],
+  "main": "./dist/extension.js",
+  "files": [
+    "dist/**",
+    "icons/rosemary-extension.png",
+    "syntaxes/**",
+    "language-configuration.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SUPPORT.md",
+    "package.json"
+  ],
+  "activationEvents": [
+    "onLanguage:rosemary",
+    "onCommand:rosemary.openPreview",
+    "onCommand:rosemary.jumpToBlockDefinition",
+    "onCommand:rosemary.handleEnter",
+    "onCommand:rosemary.handleTab"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "rosemary",
+        "aliases": [
+          "ROSEMARY",
+          "rosemary"
+        ],
+        "extensions": [
+          ".rsmr"
+        ],
+        "icon": {
+          "light": "./icons/rosemary-extension.png",
+          "dark": "./icons/rosemary-extension.png"
+        },
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rosemary",
+        "scopeName": "source.rosemary",
+        "path": "./syntaxes/rosemary.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "rosemary.openPreview",
+        "title": "Open Preview",
+        "category": "ROSEMARY"
+      },
+      {
+        "command": "rosemary.handleEnter",
+        "title": "Handle Enter",
+        "category": "ROSEMARY"
+      },
+      {
+        "command": "rosemary.handleTab",
+        "title": "Handle Tab",
+        "category": "ROSEMARY"
+      },
+      {
+        "command": "rosemary.jumpToBlockDefinition",
+        "title": "Jump to Block Definition...",
+        "category": "ROSEMARY"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "rosemary.handleEnter",
+        "key": "enter",
+        "mac": "enter",
+        "when": "editorTextFocus && (editorLangId == rosemary || resourceExtname == .rsmr)"
+      },
+      {
+        "command": "rosemary.handleTab",
+        "key": "tab",
+        "mac": "tab",
+        "when": "editorTextFocus && (editorLangId == rosemary || resourceExtname == .rsmr)"
+      }
+    ],
+    "configurationDefaults": {
+      "cSpell.words": [
+        "rsmr"
+      ]
+    },
+    "configuration": {
+      "title": "ROSEMARY",
+      "properties": {
+        "rosemary.blockReferenceHighlight.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable highlighting of defined block names when they appear in ROSEMARY block content."
+        },
+        "rosemary.blockReferenceHighlight.excludedBlockNames": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "Block names that should not be highlighted when they appear in ROSEMARY block content."
+        },
+        "rosemary.blockReferenceHighlight.colors": {
+          "type": "object",
+          "default": {
+            "default": "rgba(189, 147, 249, 0.22)",
+            "act": "rgba(203, 166, 247, 0.22)",
+            "chapter": "rgba(137, 180, 250, 0.22)",
+            "scene": "rgba(74, 144, 226, 0.24)",
+            "character": "rgba(80, 200, 120, 0.24)",
+            "item": "rgba(240, 190, 90, 0.24)",
+            "info": "rgba(160, 170, 185, 0.22)",
+            "relationship": "rgba(180, 120, 255, 0.24)",
+            "state": "rgba(130, 170, 150, 0.2)",
+            "unknown": "rgba(255, 120, 120, 0.2)"
+          },
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Background colors for block-name reference highlights. Keys are block types such as character, scene, item, relationship, or default."
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "rosemary.handleEnter",
+          "when": "false"
+        },
+        {
+          "command": "rosemary.handleTab",
+          "when": "false"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "rosemary.openPreview",
+          "when": "resourceExtname == .rsmr",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "rosemary.jumpToBlockDefinition",
+          "when": "resourceExtname == .rsmr",
+          "group": "navigation@1"
+        },
+        {
+          "command": "rosemary.openPreview",
+          "when": "resourceExtname == .rsmr",
+          "group": "navigation@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit && node esbuild.mjs",
+    "package": "vsce package --no-dependencies --out ../../release/rosemary-vscode-0.1.0.vsix",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@rosemary/core": "0.1.0",
+    "@types/vscode": "^1.95.0"
+  }
+}

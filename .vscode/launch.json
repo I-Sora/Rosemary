@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run ROSEMARY Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "preLaunchTask": "npm: build",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}/extensions/vscode-rosemary",
+                "--user-data-dir=${workspaceFolder}/.vscode-test/user-data",
+                "--extensions-dir=${workspaceFolder}/.vscode-test/extensions",
+                "${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/extensions/vscode-rosemary/dist/**/*.js"
+            ]
+        }
+    ]
+}

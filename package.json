@@ -1,0 +1,23 @@
+{
+  "name": "rosemary",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "extensions/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "package:extension": "npm run build && npm run package -w vscode-rosemary",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run build -w @rosemary/core && npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@vscode/vsce": "^3.6.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.0.0"
+  }
+}

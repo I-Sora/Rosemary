@@ -1,0 +1,7 @@
+node_modules/
+dist/
+coverage/
+.vscode-test/
+.DS_Store
+npm-debug.log*
+release/

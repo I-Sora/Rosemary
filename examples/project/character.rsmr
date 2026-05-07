@@ -1,0 +1,9 @@
+"佐倉ミオ"[character][#主人公]{
+    age: 17
+    personality: "慎重"
+}
+
+"高瀬蓮"[character][#幼なじみ]{
+    age: 18
+    personality: "穏やか"
+}
